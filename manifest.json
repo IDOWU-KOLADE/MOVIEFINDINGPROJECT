@@ -1,0 +1,22 @@
+{
+    "name": "FlickFind",
+    "short_name": "FlickFind",
+    "description": "The ultimate movie finder.",
+    "start_url": "./movie.html",
+    "display": "standalone",
+    "background_color": "#0a0f1e",
+    "theme_color": "#0d1b2a",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "IMAGES/icon2.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "IMAGES/icon1.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

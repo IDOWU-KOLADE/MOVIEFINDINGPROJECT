@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="movie.css">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0d1b2a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FlickFind">
+<link rel="apple-touch-icon" href="IMAGES/logo.png">
+	<title>FlickFind — The Ultimate Movie Finder</title>
+</head>
+<body >
+ 
+	<div class="nav-section">
+    <a href="movie.html" class="logo-link">
+			<img src="IMAGES/logo.png" alt="FlickFind Logo">
+    </a>
+	<nav class="nav-links" id="navLinks">
+        <button class="nav-link-item" id="navWishlistBtn">
+            <i class="fa-solid fa-heart"></i>
+            <span>Wishlist</span>
+            <span class="wishlist-count nav-wishlist-count" id="navWishlistCount">0</span>
+        </button>
+
+        <button class="nav-link-item" id="navDarkModeBtn">
+            <i class="fa-solid fa-moon"></i>
+        </button>
+
+        <button class="nav-link-item" id="navAboutBtn">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>About</span>
+        </button>
+    </nav>
+
+    <button class="hamburger-btn" id="hamburgerBtn">
+			<i class="fa-solid fa-bars"></i>
+    </button>    
+	</div>
+	<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <img src="IMAGES/logo.png" alt="FlickFind Logo">
+        </div>
+        <button class="sidebar-close" id="sidebarClose">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <nav class="sidebar-nav">
+		<button class="sidebar-item" id="homeBtn">
+			<i class="fa-solid fa-house"></i>
+			<span>Home</span>
+    	</button>
+        <button class="sidebar-item" id="wishlistBtn">
+            <i class="fa-solid fa-heart"></i>
+            <span>Wishlist</span>
+            <span class="wishlist-count" id="wishlistCount">0</span>
+        </button>
+
+        <button class="sidebar-item" id="darkModeBtn">
+            <i class="fa-solid fa-moon"></i>
+            <span>Dark Mode</span>
+            <div class="toggle-switch">
+                <div class="toggle-thumb"></div>
+            </div>
+        </button>
+
+        <button class="sidebar-item" id="aboutBtn">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>About FlickFind</span>
+        </button>
+    </nav>
+
+    <div class="sidebar-footer">
+        <p>Made with ❤️ by Skolade</p>
+    </div>
+</div>
+	<!-- HERO -->
+	<div class="hero-section">
+		<h1>Discover Movies You'll <span>Actually Love</span></h1>
+		<p>Search, filter, and find your next obsession in seconds.</p>
+
+		<div class="search-box">
+			<input type="text" id="searchInput" placeholder="Search movies or shows...">
+			<i class="fa-solid fa-magnifying-glass"></i>
+		</div>
+
+		<div class="mood-section">
+			<button data-mood="happy">😄 Happy</button>
+            <button data-mood="sad">😢 Sad</button>
+            <button data-mood="action">🔥 Action</button>
+            <button data-mood="mindblowing">🤯 Mind-blowing</button>
+		</div>
+	</div>
+	<div class="results-section hidden" id="resultsSection">
+		<h2 id="resultsTitle"></h2>
+            <!-- Loading state -->
+    <!-- <div class="search-loading hidden" id="searchLoading">
+        <div class="loading-spinner"></div>
+        <p>Searching movies...</p>
+    </div> -->
+
+    <!-- Error state -->
+    <div class="search-error hidden" id="searchError">
+        <p>😵 Something went wrong. Check your connection and try again.</p>
+    </div>
+
+		<div class="movies-grid" id="moviesGrid"></div>
+		<button id='load-btn' class="hidden">Load more...</button>
+	</div>
+	<!-- WISHLIST SECTION -->
+<div class="wishlist-section hidden" id="wishlistSection">
+    <div class="wishlist-header">
+        <button class="back-btn" id="backBtn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h2>My Wishlist</h2>
+    </div>
+    <div class="movies-grid" id="wishlistGrid"></div>
+    <p class="empty-wishlist hidden" id="emptyWishlist">
+        💔 No movies saved yet. Start searching!
+    </p>
+</div>
+<div class="about-section hidden" id="aboutSection">
+    <div class="about-header">
+        <button class="back-btn" id="aboutBackBtn">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+        <h2>About FlickFind</h2>
+    </div>
+
+    <div class="about-content">
+
+        <h3>🎬 FlickFind — Movie Discovery, Reimagined</h3>
+        <p>
+            FlickFind is a modern movie discovery platform built to eliminate endless scrolling and indecision. 
+            Instead of wasting time jumping between apps, FlickFind gives you a fast, clean, and intelligent way 
+            to search, explore, and save movies — all in one place.
+        </p>
+
+        <p>
+            Whether you already know what you're looking for or just want something that matches your mood, 
+            FlickFind helps you get there instantly.
+        </p>
+
+        <hr>
+
+        <h3>🚀 Core Features</h3>
+        <ul>
+            <li>
+                🔍 <strong>Smart Search System</strong><br>
+                Instantly find movies by typing just a few characters. Results update dynamically and load smoothly without refreshing the page.
+            </li>
+
+            <li>
+                🎭 <strong>Mood-Based Discovery</strong><br>
+                Explore movies based on vibes like <em>Happy, Sad, Action, or Mind-Blowing</em>. 
+                Perfect for when you don’t know what to watch.
+            </li>
+
+            <li>
+                ❤️ <strong>Personal Wishlist</strong><br>
+                Save movies you love and access them anytime. Your wishlist is stored locally, so it stays even after refresh.
+            </li>
+
+            <li>
+                🎬 <strong>Detailed Movie Modal</strong><br>
+                Click any movie to view full details including plot, cast, rating, runtime, and more — without leaving the page.
+            </li>
+
+            <li>
+                🌗 <strong>Dark & Light Mode</strong><br>
+                Switch between themes for comfort and style. Your preference is saved automatically.
+            </li>
+
+            <li>
+                📱 <strong>Fully Responsive Design</strong><br>
+                Optimized for both mobile and desktop — smooth experience everywhere.
+            </li>
+
+            <li>
+                📌 <strong>Load More System</strong><br>
+                Seamlessly fetch more results without interrupting your browsing flow.
+            </li>
+        </ul>
+
+        <hr>
+
+        <h3>🧠 How to Use FlickFind</h3>
+        <ul>
+            <li>Start typing in the search bar to instantly see results.</li>
+            <li>Click any movie card to open detailed information.</li>
+            <li>Use the ❤️ icon to add/remove movies from your wishlist.</li>
+            <li>Tap mood buttons to quickly explore curated search ideas.</li>
+            <li>Use the navigation (sidebar or top bar) to switch between sections.</li>
+        </ul>
+
+        <hr>
+
+        <h3>⚙️ Under the Hood</h3>
+        <ul>
+            <li><strong>HTML5</strong> — Structured layout</li>
+            <li><strong>CSS3</strong> — Styling, animations, and responsiveness</li>
+            <li><strong>Vanilla JavaScript</strong> — Core logic and interactivity</li>
+            <li><strong>OMDb API</strong> — Real-time movie data</li>
+            <li><strong>LocalStorage</strong> — Persistent wishlist and theme settings</li>
+        </ul>
+
+        <hr>
+
+        <h3>👨‍💻 Meet the Developer</h3>
+        <p>
+            FlickFind was crafted by <strong>Kolade a.k.a Skolade</strong>, a Computer Engineering student with a passion 
+            for building clean, efficient, and user-focused digital experiences.
+        </p>
+
+        <p>
+            This project is part of a larger journey into full-stack development, with a focus on creating 
+            real-world applications that solve everyday problems.
+        </p>
+
+        <p>
+            Every detail in FlickFind — from performance to UI — is intentionally designed to deliver 
+            simplicity, speed, and elegance.
+        </p>
+
+        <!-- <hr>
+
+
+
+        <p style="margin-top: 1rem; font-weight: 600;">
+            Built with serious attention to detail.
+        </p> -->
+
+    </div>
+</div>
+	<div class="toast" id="toast"></div>
+
+	<!-- MOVIE DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="movie-modal" id="movieModal">
+    <div class="modal-handle"></div>
+    <button class="modal-close" id="modalClose">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+    <div class="modal-content" id="modalContent">
+        <!-- JS fills this in -->
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="site-footer" id="siteFooter">
+    <div class="footer-inner">
+        <div class="footer-top">
+            <span class="brand-name">
+                <span class="flick">Flick</span><span class="find">Find</span>
+            </span>
+            <span class="version-badge">v1.0</span>
+        </div>
+        <p class="footer-tagline">The ultimate movie finder.</p>
+        <hr class="footer-divider">
+        <div class="footer-bottom">
+            <span class="footer-copy">© 2025 FlickFind. All rights reserved.</span>
+            <div class="social-links">
+                <a class="social-btn" href="https://x.com/sko_lade" target="_blank" title="X / Twitter">
+                    <span class="x-icon">𝕏</span>
+                </a>
+                <a class="social-btn" href="https://wa.me/2348062301372" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+                    <span class="wa-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12 0C5.373 0 0 5.373 0 12c0 2.126.553 4.122 1.522 5.856L.057 23.985l6.286-1.45A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.89 0-3.663-.5-5.194-1.378l-.371-.221-3.853.888.92-3.742-.242-.386A9.961 9.961 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="./JAVSCRIPT/movie.js">
+</script>
+
+</body>
+</html>

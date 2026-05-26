@@ -1,0 +1,1336 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/* DARK MODE (default) */
+:root {
+    --bg-primary: #0a0f1e;
+    --bg-secondary: #0d1b2a;
+    --bg-card: #1a2744;
+    --text-primary: white;
+    --text-secondary: rgba(255,255,255,0.6);
+    --text-muted: rgba(255,255,255,0.3);
+    --accent: #f5c518;
+    --border: rgba(255,255,255,0.06);
+    --border-subtle: rgba(255,255,255,0.08);
+    --overlay: rgba(0,0,0,0.6);
+}
+
+/* LIGHT MODE */
+body.light {
+ --bg-primary: #f0f4f8;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #0a0f1e;
+    --text-secondary: rgba(0,0,0,0.6);
+    --text-muted: rgba(0,0,0,0.3);
+    --accent: #c99000; /* darker gold — readable on white ✅ */
+    --border: rgba(0,0,0,0.06);
+    --border-subtle: rgba(0,0,0,0.1);
+    --overlay: rgba(0,0,0,0.4);
+    background-image: 
+        radial-gradient(circle at top, rgba(245,197,24,0.08), transparent 70%),
+        radial-gradient(circle at bottom, rgba(200,220,255,0.3), transparent 70%); /* ← light gradient ✅ */
+}
+a{
+    display: inline-block;
+}
+.logo-link img{
+    width: auto;
+    height: 35px;
+}
+body {
+   
+    background-color: var(--bg-primary);
+    background-image: 
+    radial-gradient(circle at top, rgba(245,197,24,0.12), transparent 70%),
+    radial-gradient(circle at bottom, rgba(26,39,68,0.4), transparent 70%);
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 50px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+/* Note: Max-width and ,argin of auto don't work with position fixed!!! */
+.nav-section {
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: fixed;
+    align-items: center;
+    top: 0px;
+    z-index: 999;
+    left: 50%;                        
+    transform: translateX(-50%);  
+    background-color: var(--bg-secondary); /* ← add this ✅ */
+    padding: 0 1rem; /* ← add this too for breathing room */
+    /* border-radius: 12px; ← optional, looks clean */
+    /* border: 1px solid rgba(255,255,255,0.06); ← subtle border */ 
+
+}
+.hamburger-btn {
+    background: transparent;  /* no background */
+    border: none;             /* no border */
+    cursor: pointer;          /* pointer on hover */
+    padding: 8px;
+    border-radius: 6px;
+    transition: background 0.3s ease; /* smooth hover effect */
+}
+
+.hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.1); /* subtle hover glow */
+}
+
+.hamburger-btn i {
+      color: var(--accent); /* ←   /* golden yellow accent ✅ */
+    font-size: 1.3rem;
+}
+
+/* Overlay — dark background behind sidebar */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+       background: var(--overlay);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    pointer-events: all; /* clicks on overlay close sidebar */
+}
+
+/* Sidebar panel */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -280px; /* hidden off screen by default */
+    width: 280px;
+    height: 100%;
+    background: var(--bg-secondary);
+    border-left: 1px solid var(--border-subtle);
+    z-index: 1001;
+    transition: right 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+
+.sidebar.active {
+    right: 0; /* slides in ✅ */
+}
+
+/* Sidebar header */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+
+}
+
+.sidebar-logo img {
+    height: 30px;
+    width: auto;
+}
+
+.sidebar-close {
+    background: transparent;
+    border: none;
+   color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 4px;
+    transition: color 0.3s ease;
+}
+
+.sidebar-close:hover {
+      color: var(--text-primary); /
+}
+
+/* Sidebar nav items */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1; /* pushes footer to bottom */
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    padding: 0.9rem 0.8rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    width: 100%;
+}
+
+.sidebar-item:hover {
+ background: var(--border);
+    color: var(--text-primary);
+}
+
+.sidebar-item i {
+    color: #f5c518;
+    font-size: 1rem;
+    width: 20px; /* fixed width so text aligns ✅ */
+}
+
+/* Wishlist count badge */
+.wishlist-count {
+    margin-left: auto;
+    background: #f5c518;
+    color: black;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    min-width: 20px;
+    text-align: center;
+}
+
+/* Dark mode toggle switch */
+.toggle-switch {
+    margin-left: auto;
+    width: 40px;
+    height: 22px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 2px;
+    transition: background 0.3s ease;
+}
+
+.toggle-switch.on {
+    background: #f5c518;
+}
+
+.toggle-thumb {
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch.on .toggle-thumb {
+    transform: translateX(18px);
+}
+
+/* Sidebar footer */
+.sidebar-footer {
+    padding-top: 1rem;
+   border-top: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-align: center;
+}
+.hero-section {
+    flex: 1;
+    /* min-height: calc(100vh - 60px - 110px);  */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    color: var(--text-primary);
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 0.8s ease-in-out;
+
+
+}
+.hero-section.searching h1,
+.hero-section.searching p,
+.hero-section.searching .mood-section {
+    display: none; /* hide when searching ✅ */
+}
+.hero-section.searching {
+    flex:0;
+    min-height: unset; /* shrinks to just its content */
+    padding-bottom: 1rem;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.hero-section h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.7rem;
+    line-height: 1.3;
+}
+
+.hero-section h1 span {
+    color: var(--accent);
+}
+.hero-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+.search-box {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.7rem 2.5rem 0.7rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 30px;
+    border: 2px solid var(--accent);
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    outline: none;
+}
+
+.search-box input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-box input:focus {
+    box-shadow: 0 0 12px rgba(245,197,24,0.3);
+}
+.search-box i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #f5c518;
+}
+.mood-section {
+    margin-top: 1rem;
+    gap: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.mood-section button {
+    background: var(--border);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    padding: 0.4rem 0.7rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.mood-section button:hover {
+   background: var(--accent);
+    color: black;
+}
+.hidden {
+    display: none;
+}
+
+
+
+
+.mood-section button.active {
+    background: var(--accent);
+    color: black;
+}
+.search-error {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+.results-section {
+    padding: 0 1.5rem 3rem;
+    flex: 1;
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 200px;
+
+}
+
+.results-section h2 {
+     color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+    width: 100%;
+  
+}
+
+
+.movie-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: visible;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}
+
+.movie-card-info {
+    padding: 0.6rem;
+}
+
+.movie-card-info h3 {
+     color: var(--text-primary);
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* adds ... if title too long */
+}
+
+.movie-card-info p {
+   color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: bold;
+}
+
+.movie-card {
+    position: relative; /* needed for absolute button positioning */
+}
+
+.wishlist-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.wishlist-btn i {
+    color: white;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn.wishlisted i {
+    color: #e63946; /* red heart when wishlisted ✅ */
+}
+
+.wishlist-btn:hover {
+    background: rgba(0,0,0,0.8);
+    transform: scale(1.1);
+}
+.toast {
+    position: fixed;
+    bottom: -60px; /* hidden below screen by default */
+    left: 50%;
+    transform: translateX(-50%);
+      background: var(--bg-card);
+    border: 1px solid rgba(245,197,24,0.3);
+    color: var(--text-primary);
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    font-size: 0.85rem;
+  
+    transition: bottom 0.3s ease;
+    z-index: 9999;
+    white-space: nowrap;
+}
+
+.toast.show {
+    bottom: 30px; /* slides up into view ✅ */
+}
+
+#load-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.8rem;
+    background: transparent;
+    border: none;
+      border-top: 1px solid var(--border-subtle);
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+#load-btn:hover {
+    color: white;
+    letter-spacing: 0.1em; /* subtle expand on hover */
+}
+
+#load-btn::after {
+    content: " ↓"; /* little arrow after text */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay);
+    z-index: 2000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* slides up from bottom */
+.movie-modal {
+    position: fixed;
+    bottom: -100%; /* hidden below screen */
+    left: 0;
+    width: 100%;
+    max-height: 85vh;
+    background: var(--bg-secondary);
+    border-radius: 20px 20px 0 0;
+    z-index: 2001;
+    transition: bottom 0.4s ease;
+    overflow-y: auto;
+    padding: 1rem 1.5rem 2rem;
+}
+
+.movie-modal.active {
+    bottom: 0; /* slides up ✅ */
+}
+
+/* the little drag handle at top */
+.modal-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--border-subtle);
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--border);
+    border: none;
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+    background: var(--border-subtle);
+    color: var(--text-primary);
+}
+
+/* modal content layout */
+.modal-movie-top {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.modal-poster {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.modal-movie-info {
+    flex: 1;
+}
+
+.modal-movie-info h2 {
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+}
+
+.modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.6rem;
+}
+
+.modal-tag {
+    background: var(--border);
+    color: var(--text-secondary);
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+}
+
+.modal-rating {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.modal-plot {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+.modal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-detail-row {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+}
+
+.modal-detail-row span:first-child {
+    color: var(--text-muted);
+    min-width: 80px;
+}
+
+.modal-detail-row span:last-child {
+    color: var(--text-primary);
+}
+
+.modal-wishlist-btn {
+    width: 100%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 12px;
+    background: var(--accent);
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.modal-wishlist-btn:hover {
+    opacity: 0.85;
+}
+
+.modal-wishlist-btn.wishlisted {
+    background: var(--border);
+    color: var(--text-primary);
+}
+
+/* loading state */
+.modal-loading {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+
+
+
+
+
+
+
+
+ /* RESPONSIVENESS */
+ /* Hide nav links on mobile by default */
+.nav-links {
+    display: none;
+}
+.wishlist-section {
+    padding: 0 1.5rem 3rem;
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+      background-color: var(--bg-primary);
+    min-height: calc(100vh - 60px); /* ← full height ✅ */
+}
+
+.wishlist-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+.wishlist-header h2 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.back-btn {
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.3s ease;
+}
+
+.back-btn:hover {
+    transform: translateX(-4px);
+}
+
+.empty-wishlist {
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 3rem 0;
+    font-size: 0.95rem;
+}
+.about-section {
+    padding: 0 1.5rem 3rem;
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: var(--bg-primary);
+    min-height: calc(100vh - 60px);
+}
+
+.about-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
+}
+
+.about-header h2 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.about-content h3 {
+    color: var(--accent);
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.about-content p {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+.about-content ul {
+    padding-left: 1rem;
+    margin-top: 0.3rem;
+}
+
+.about-content li {
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.5;
+}
+.site-footer {
+    width: 100%;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-subtle);
+    padding: 1.2rem 1.5rem 1rem;
+    z-index: 97;
+}
+
+.footer-inner {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.6rem;
+}
+
+.brand-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.brand-name .flick { color: var(--text-primary); }
+.brand-name .find  { color: var(--accent); }
+
+.version-badge {
+    background: var(--accent);
+    color: #1a1200;
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.04em;
+    margin-left: 8px;
+}
+
+.footer-tagline {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+}
+
+.footer-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin-bottom: 0.75rem;
+}
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-copy {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+}
+
+.social-links {
+    display: flex;
+    gap: 6px;
+}
+
+.social-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: var(--border);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+.social-btn:hover {
+    background: rgba(245, 197, 24, 0.15);
+    border-color: rgba(245, 197, 24, 0.4);
+    color: var(--accent);
+}
+
+.social-btn .wa-icon svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--text-secondary);
+    transition: fill 0.25s ease;
+    display: block;
+}
+
+.social-btn:hover .wa-icon svg {
+    fill: var(--accent);
+}
+
+.x-icon {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 0.78rem;
+    font-family: sans-serif;
+    line-height: 1;
+}
+.wishlist-section,
+.about-section {
+    flex: 1;
+    padding: 1rem 1.5rem 2rem;
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+    background-color: var(--bg-primary);
+    margin-top: unset;
+    min-height: unset;
+}
+.results-section {
+    padding: 0 1.5rem 2rem;
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ========== RESPONSIVE: 480px and above ========== */
+@media (min-width: 480px) {
+
+    /* LAYOUT CONTAINERS — wider on bigger screens */
+    .hero-section,
+    .results-section,
+    .wishlist-section,
+    .about-section {
+        max-width: 900px;
+    }
+
+    /* NAV */
+    .nav-section {
+        padding: 0 2rem;
+    }
+
+    /* HERO */
+    .hero-section {
+        padding: 2rem 2rem;
+    }
+
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .hero-section p {
+        font-size: 1rem;
+        max-width: 420px;
+    }
+
+    .search-box {
+        max-width: 420px;
+    }
+
+    .mood-section {
+        gap: 0.6rem;
+    }
+
+    .mood-section button {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.9rem;
+    }
+
+    /* MOVIE GRID — 2 columns */
+    .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .movie-card img {
+        height: 240px;
+    }
+
+    .movie-card-info h3 {
+        font-size: 0.88rem;
+    }
+
+    .movie-card-info p {
+        font-size: 0.8rem;
+    }
+
+    /* RESULTS SECTION */
+    .results-section {
+        padding: 0 2rem 2rem;
+    }
+
+    .results-section h2 {
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+    }
+
+    /* WISHLIST */
+    .wishlist-section {
+        padding: 1rem 2rem 2rem;
+    }
+
+    .wishlist-header h2 {
+        font-size: 1.2rem;
+    }
+
+    /* ABOUT */
+    .about-section {
+        padding: 1rem 2rem 2rem;
+    }
+
+    .about-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .about-content h3 {
+        font-size: 1rem;
+    }
+
+    .about-content p,
+    .about-content li {
+        font-size: 0.9rem;
+    }
+
+    /* MODAL */
+    .movie-modal {
+        max-width: 480px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20px 20px 0 0;
+    }
+
+    .modal-poster {
+        width: 120px;
+        height: 175px;
+    }
+
+    .modal-movie-info h2 {
+        font-size: 1.1rem;
+    }
+
+    /* TOAST */
+    .toast {
+        font-size: 0.9rem;
+        padding: 0.8rem 2rem;
+    }
+
+    /* FOOTER */
+    .site-footer {
+        padding: 1.4rem 2rem 1.2rem;
+    }
+
+    .footer-inner {
+        max-width: 900px;
+    }
+
+    .brand-name {
+        font-size: 1.15rem;
+    }
+
+    .footer-tagline {
+        font-size: 0.8rem;
+    }
+
+    .footer-copy {
+        font-size: 0.75rem;
+    }
+
+    .social-btn {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+/* ========== RESPONSIVE: 768px and above ========== */
+@media (min-width: 768px) {
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .hamburger-btn {
+        display: none; /* hamburger disappears on desktop ✅ */
+    }
+
+    .nav-link-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: transparent;
+        border: none;
+        color: var(--text-secondary); 
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link-item:hover {
+       background: var(--border); /* ← uses variable ✅ */
+        color: var(--text-primary);
+    }
+
+    .nav-link-item i {
+        color: var(--accent); 
+        font-size: 0.9rem;
+    }
+
+    .nav-wishlist-count {
+               background: var(--accent);
+        color: black;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 20px;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .hamburger-btn {
+        display: none; /* hamburger disappears on desktop ✅ */
+    }
+
+    .nav-link-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: transparent;
+        border: none;
+        color: var(--text-secondary); 
+        font-size: 0.85rem;
+        padding: 0.5rem 0.8rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link-item:hover {
+       background: var(--border); /* ← uses variable ✅ */
+        color: var(--text-primary);
+    }
+
+    .nav-link-item i {
+        color: var(--accent); 
+        font-size: 0.9rem;
+    }
+
+    .nav-wishlist-count {
+               background: var(--accent);
+        color: black;
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 20px;
+    }
+
+    /* LAYOUT CONTAINERS */
+    .hero-section,
+    .results-section,
+    .wishlist-section,
+    .about-section {
+        max-width: 1100px;
+    }
+
+    /* NAV */
+    .nav-section {
+        padding: 0 3rem;
+    }
+
+    /* HERO */
+    .hero-section h1 {
+        font-size: 2.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-section p {
+        font-size: 1.05rem;
+        max-width: 520px;
+        margin-bottom: 2rem;
+    }
+
+    .search-box {
+        max-width: 520px;
+    }
+
+    .mood-section {
+        gap: 0.7rem;
+        margin-top: 1.4rem;
+    }
+
+    .mood-section button {
+        font-size: 0.9rem;
+        padding: 0.55rem 1rem;
+    }
+
+    /* MOVIE GRID — 3 columns */
+    .movies-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+
+    .movie-card img {
+        height: 260px;
+    }
+
+    /* RESULTS */
+    .results-section {
+        padding: 0 3rem 2rem;
+    }
+
+    /* WISHLIST */
+    .wishlist-section {
+        padding: 1rem 3rem 2rem;
+    }
+
+    /* ABOUT */
+    .about-section {
+        padding: 1rem 3rem 2rem;
+        max-width: 720px;
+    }
+
+    .about-content {
+        display: block;
+    }
+
+    .about-content h3{
+            font-size: 1rem;
+    margin-top: 1.5rem;
+    }
+.about-content p,
+.about-content li {
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.about-content ul {
+    padding-left: 1.2rem;
+}
+
+    /* MODAL */
+    .movie-modal {
+        max-width: 560px;
+    }
+
+    .modal-poster {
+        width: 130px;
+        height: 190px;
+    }
+
+    /* FOOTER */
+    .site-footer {
+        padding: 1.5rem 3rem 1.2rem;
+    }
+
+    .footer-inner {
+        max-width: 1100px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .footer-top {
+        margin-bottom: 0;
+    }
+
+    .footer-tagline {
+        margin-bottom: 0;
+        order: 3;
+        width: 100%;
+        border-top: 1px solid var(--border);
+        padding-top: 0.75rem;
+        margin-top: 0.75rem;
+    }
+
+    .footer-divider {
+        display: none;
+    }
+
+    .footer-bottom {
+        flex: 1;
+        justify-content: flex-end;
+        gap: 1.5rem;
+    }
+}
+
+/* ========== RESPONSIVE: 1024px and above ========== */
+@media (min-width: 1024px) {
+
+    /* LAYOUT CONTAINERS */
+    .hero-section,
+    .results-section,
+    .wishlist-section,
+    .about-section {
+        max-width: 1200px;
+    }
+
+    /* HERO */
+    .hero-section h1 {
+        font-size: 3rem;
+    }
+
+    .hero-section p {
+        font-size: 1.1rem;
+        max-width: 580px;
+    }
+
+    .search-box {
+        max-width: 580px;
+    }
+
+    /* MOVIE GRID — 4 columns */
+    .movies-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.4rem;
+    }
+
+    .movie-card img {
+        height: 280px;
+    }
+
+    /* SIDEBAR — hide entirely, nav links handle everything */
+    .hamburger-btn {
+        display: none;
+    }
+
+
+.about-section {
+    max-width: 760px;
+}
+}
